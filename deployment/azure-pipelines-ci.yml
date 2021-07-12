@@ -5,15 +5,18 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-# - stage: Run_CI_Tests
-#   jobs:
-#     - job: 
-#       steps:
-#         # We're just doing a build image here to 
-#         # run all the tests for simplicity sake
-#         #- script: ./mvnw spring-boot:build-image
-#         - script: ./mvnw spring-boot:build-info
-#           displayName: 'Build Spring Pet Clinic'
+- stage: Run_CI_Tests
+  jobs:
+    - job: 
+      steps:
+        # We're just doing a build image here to 
+        # run all the tests for simplicity sake
+        #- script: ./mvnw spring-boot:build-image
+        # - script: ./mvnw spring-boot:build-info
+        #   displayName: 'Build Spring Pet Clinic'
+        # - script: echo $(executionType)
+        - script: "echo ci tests"
+
 - stage: Image_Build
   jobs:
     - job: Image_Build_Job
@@ -57,52 +60,3 @@ stages:
             echo "Key Value :"
             echo $(patch_image.sha)
           name: Print_Key_value
-- stage: Deploy_Dev
-  dependsOn: Image_Build
-  variables:
-    imageSHA: $[ stageDependencies.Image_Build.Image_Build_Job.outputs['patch_image.sha'] ]
-  condition: in(dependencies.Image_Build.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
-  jobs:
-  - deployment: Deploy_Dev
-    displayName: Deploy Development
-    workspace:
-      clean: all
-    environment: stage
-    strategy:
-      runOnce: 
-        deploy:
-          steps:
-            - checkout: self
-            - task: HelmDeploy@0
-              inputs:
-                connectionType: 'Kubernetes Service Connection'
-                kubernetesServiceConnection: 'gke-dev'
-                namespace: 'spring-petclinic-dev'
-                command: 'upgrade'
-                chartType: 'FilePath'
-                chartPath: 'deployment/chart/spring-petclinic'
-                overrideValues: image.tag=$(imageSHA)
-- stage: Deploy_Production
-  dependsOn: ["Image_Build", "Deploy_Dev"]
-  variables:
-    imageSHA: $[ stageDependencies.Image_Build.Image_Build_Job.outputs['patch_image.sha'] ]
-  condition: in(dependencies.Image_Build.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
-  jobs:
-  - deployment: Deploy_Prod
-    displayName: Deploy Production
-    workspace:
-      clean: all
-    environment: production
-    strategy:
-      runOnce: 
-        deploy:
-          steps:
-            - task: HelmDeploy@0
-              inputs:
-                connectionType: 'Kubernetes Service Connection'
-                kubernetesServiceConnection: 'gke-dev'
-                namespace: 'spring-petclinic-prod'
-                command: 'upgrade'
-                chartType: 'FilePath'
-                chartPath: 'deployment/chart/spring-petclinic'
-                overrideValues: image.tag=$(imageSHA)
