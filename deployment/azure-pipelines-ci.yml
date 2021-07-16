@@ -11,11 +11,7 @@ stages:
       steps:
         # We're just doing a build image here to 
         # run all the tests for simplicity sake
-        #- script: ./mvnw spring-boot:build-image
-        # - script: ./mvnw spring-boot:build-info
-        #   displayName: 'Build Spring Pet Clinic'
-        # - script: echo $(executionType)
-        - script: "echo ci tests"
+        - script: ./mvnw spring-boot:build-image
 
 - stage: Image_Build
   jobs:
