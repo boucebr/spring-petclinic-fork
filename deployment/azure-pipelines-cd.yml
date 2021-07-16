@@ -32,7 +32,7 @@ stages:
                 command: 'upgrade'
                 chartType: 'FilePath'
                 chartPath: 'deployment/chart/spring-petclinic'
-                releaseName: 'spc'
+                releaseName: 'spring-petclinic-prod'
                 overrideValues: image.tag=$(imageSHA)
                 arguments: '--create-namespace'
 - stage: Deploy_Production
@@ -57,6 +57,6 @@ stages:
                 command: 'upgrade'
                 chartType: 'FilePath'
                 chartPath: 'deployment/chart/spring-petclinic'
-                releaseName: 'spc'
+                releaseName: 'spring-petclinic-prod'
                 overrideValues: 'image.tag=$(imageSHA)'
                 arguments: '--create-namespace'
