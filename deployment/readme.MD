@@ -6,7 +6,8 @@ The end goal will be for examples to be available for all the most common CICD s
 
 The current available samples are:
 
-|| CI Solution || CD Solution || Registry ||
+| CI Solution | CD Solution | Registry |
+| ----------- | ----------- | -------- |
 | Azure DevOps | Azure DevOps | Harbor |
 
 # Pre-requesits 
