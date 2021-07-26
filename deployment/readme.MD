@@ -28,6 +28,12 @@ This workflow utilizies a single new branch (feature branch) whose commits are m
 
 # CD Pipeline #1
 
+![Pipeline #1](images/cd-pipeline-1.png)
+
+# CD Pipeline #2
+
+![Pipeline #2](images/cd-pipeline-2.png)
+
 # Prep work
 
 In order for the deployment to work - you'll need to create the image on Tanzu build service and point it to a previous commit sha:
