@@ -24,13 +24,23 @@ The examples will follow the [feature branch workflow](https://docs.pivotal.io/b
 
 ![Full Workflow](https://docs.pivotal.io/build-service/1-2/images/ci_flow_full.png)
 
-This workflow utilizies a single new branch (feature branch) whose commits are merged in to the main branch (labeled `Git Branch A` above)  via an organization's typical merge workflow.   The examples then pick up at this point and has two pipelines:
+This workflow supports two distinct workflows to support both code changes as well as Stack updates to patch OS level vulnerabilities.  The first workflow utilizies a single new branch (feature branch) whose commits are merged in to the main branch (labeled `Git Branch A` above) via an organization's typical merge workflow.  The second is triggered by an image push to a docker registry performs a deployment.
 
-# CD Pipeline #1
+## New Code is commited
 
 ![Pipeline #1](images/cd-pipeline-1.png)
 
+The first pipeline is what will trigger the Tanzu Build Service to build an image for a given commit.  The flow is as follows:
+
+1.  Monitor the main branch (`Git Branch A`) for new commits to be merged
+2.  When new commits are detected, invoke any integration tests (optional, as this may have been performed prior to merge)
+3.  Trigger the Tanzu build service to build a new image by updating the git commit sha for a given image definition and wait for the build to complete
+
+This workflow is completed when the Tanzu Build Service finishes the build and pushes it to the docker registry.
+
 # CD Pipeline #2
+
+The second pipeline is triggered by a Webhook generated from the registry once an image is pushed.  This is done to capture not only image pushes performed by the first workflow, but also an image push that is triggered by a stack update. 
 
 ![Pipeline #2](images/cd-pipeline-2.png)
 
