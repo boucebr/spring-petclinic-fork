@@ -24,11 +24,9 @@ The examples will follow the [feature branch workflow](https://docs.pivotal.io/b
 
 ![Full Workflow](https://docs.pivotal.io/build-service/1-2/images/ci_flow_full.png)
 
-This workflow utilizies a single new branch (feature branch) that is merged in to the master branch via an organizations typical merge workflow.   The examples then pick up at this point and have two pipelines:
+This workflow utilizies a single new branch (feature branch) whos commits are merged in to the main branch (labeled `Git Branch A` above)  via an organization's typical merge workflow.   The examples then pick up at this point and has two pipelines:
 
 # CD Pipeline #1
-
-
 
 # Prep work
 
