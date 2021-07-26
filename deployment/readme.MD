@@ -40,7 +40,7 @@ This workflow is completed when the Tanzu Build Service finishes the build and p
 
 # CD Pipeline #2
 
-The second pipeline is triggered by a Webhook generated from the registry once an image is pushed.  This is done to capture not only image pushes performed by the first workflow, but also an image push that is triggered by a stack update. 
+The second pipeline is triggered when a docker image is pushing to the registry.  This is done to capture not only image pushes performed by the first workflow, but also an image push that is triggered by a stack update. 
 
 ![Pipeline #2](images/cd-pipeline-2.png)
 
