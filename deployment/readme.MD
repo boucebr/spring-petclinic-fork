@@ -20,9 +20,9 @@ This guide assumes all of the following are in available for the example pipelin
 
 # Pipeline Workflow
 
-The examples will follow the [feature branch workflow](https://docs.pivotal.io/build-service/1-2/tbs-in-ci.html) that is demonstrated in the [TBS documents](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).  
+The examples will follow the [feature branch workflow](https://docs.pivotal.io/build-service/1-2/tbs-in-ci.html) that is demonstrated in the [TBS documentation](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow).  
 
-(https://docs.pivotal.io/build-service/1-2/images/ci_flow_full.png)
+![Full Workflow](https://docs.pivotal.io/build-service/1-2/images/ci_flow_full.png)
 
 This workflow utilizies a single new branch (feature branch) that is merged in to the master branch via an organizations typical merge workflow.   The examples then pick up at this point and have two pipelines:
 
