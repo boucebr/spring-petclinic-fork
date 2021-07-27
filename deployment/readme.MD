@@ -1,8 +1,8 @@
 # Deployment Guide
 
-The purpose of this guide is to provide examples of how the you can leverage the [Tanzu Build Service](https://tanzu.vmware.com/build-service) as part of your CI/CD pipeline. It will use the [Spring PetClinic](https://github.com/spring-projects/spring-petclinic) application as the sample application to deploy.
+The purpose of this guide is to provide examples of how you can leverage the [Tanzu Build Service](https://tanzu.vmware.com/build-service) as part of your CI/CD pipeline. It will use the [Spring PetClinic](https://github.com/spring-projects/spring-petclinic) application as the sample application to deploy.
 
-The end goal will be for examples to be available for all the most common CICD solutions, as well as as the most common docker registeries.
+The end goal will be for examples to be available for all the most common CI/CD solutions, as well as as the most common docker registeries.
 
 The current available samples are:
 
@@ -12,7 +12,7 @@ The current available samples are:
 
 # Pre-requisites 
 
-This guide assumes all of the following are in available for the example pipelines:
+This guide assumes all of the following are available for the example pipelines:
 
 1.  A Kubernetes Cluster
 2.  Tanzu Build Service installed per the [installation docs](https://docs.pivotal.io/build-service/1-2/installing.html)
@@ -24,9 +24,9 @@ The examples will follow the [feature branch workflow](https://docs.pivotal.io/b
 
 ![Full Workflow](https://docs.pivotal.io/build-service/1-2/images/ci_flow_full.png)
 
-This workflow supports two distinct workflows to support both code changes as well as Stack updates to patch OS level vulnerabilities.  The first workflow utilizies a single new branch (feature branch) whose commits are merged in to the main branch (labeled `Git Branch A` above) via an organization's typical merge workflow.  The second is triggered by an image push to a docker registry performs a deployment.
+The overall workflow supports two distinct pipelines to support both code changes as well as TBS Stack updates to patch OS level vulnerabilities.  The first pipeline utilizies a single new branch (feature branch) whose commits are merged in to the main branch (labeled `Git Branch A` above) via an organization's typical merge workflow and CI processes.  The second is triggered by an image push to a docker registry and performs a deployment to a development namespace, followed by a promotion to a production namespace.
 
-## New Code is commited
+## New Code is commited (CD Pipeline #1)
 
 ![Pipeline #1](images/cd-pipeline-1.png)
 
@@ -38,7 +38,7 @@ The first pipeline is what will trigger the Tanzu Build Service to build an imag
 
 This workflow is completed when the Tanzu Build Service finishes the build and pushes it to the docker registry.
 
-# CD Pipeline #2
+# New Image is Pushed (CD Pipeline #2)
 
 The second pipeline is triggered when a docker image is pushing to the registry.  This is done to capture not only image pushes performed by the first workflow, but also an image push that is triggered by a stack update. 
 
